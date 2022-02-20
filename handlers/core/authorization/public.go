@@ -38,14 +38,12 @@ func (ph PublicHandler) AuthValidator(next http.Handler) http.Handler {
 		authorizationID := req.Header.Get("Authorization-ID")
 
 		if authorization == "" {
-			fmt.Println(1)
 			respData.Message = "Token Not Valid"
 			handlers.WriteResponse(res, respData, http.StatusUnauthorized)
 			return
 		}
 
 		if authorizationID == "" {
-			fmt.Println(2)
 			respData.Message = "Token Not Valid"
 			handlers.WriteResponse(res, respData, http.StatusUnauthorized)
 			return
@@ -53,7 +51,6 @@ func (ph PublicHandler) AuthValidator(next http.Handler) http.Handler {
 
 		authUnix, err := utils.StrToInt64(authorizationID)
 		if err != nil {
-			fmt.Println(3)
 			respData.Message = "Token Not Valid"
 			handlers.WriteResponse(res, respData, http.StatusUnauthorized)
 			return
@@ -61,7 +58,6 @@ func (ph PublicHandler) AuthValidator(next http.Handler) http.Handler {
 
 		authTime := time.Unix(authUnix, 0)
 		if time.Now().UTC().Unix() > (authTime.UTC().Add(cg.Time1Min)).Unix() {
-			fmt.Println(4)
 			respData.Message = "Token Not Valid"
 			handlers.WriteResponse(res, respData, http.StatusUnauthorized)
 			return
@@ -71,7 +67,6 @@ func (ph PublicHandler) AuthValidator(next http.Handler) http.Handler {
 		authCompare := fmt.Sprintf("%x", authCompareByte)
 
 		if authCompare != authorization {
-			fmt.Println(5)
 			respData.Message = "Token Not Valid"
 			handlers.WriteResponse(res, respData, http.StatusUnauthorized)
 			return

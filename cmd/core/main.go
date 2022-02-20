@@ -12,18 +12,18 @@ import (
 )
 
 func main() {
+	conf, err := config.GetCoreConfig()
+	if err != nil {
+		panic(err)
+	}
+
 	id := time.Now().UTC().Add(time.Duration(525960 * time.Minute)).Unix()
-	secret := "^qwertyuiop" //public secret key
+	secret := conf.Authorization.Public.SecretKey //public secret key
 
 	authCompareByte := sha256.Sum256([]byte(fmt.Sprintf("%s%d", secret, id)))
 
 	fmt.Println(id)
 	fmt.Printf("%x\n", authCompareByte)
-
-	conf, err := config.GetCoreConfig()
-	if err != nil {
-		panic(err)
-	}
 
 	handler, log, err := config.NewRepoContext(conf)
 	if err != nil {
