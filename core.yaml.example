@@ -1,0 +1,47 @@
+APP:
+  NAME: code
+  ENV: local
+  URL: localhost
+  PORT: 3000
+  KEY: abcdefgqwertyz
+  ENDPOINT: /v1
+
+ROUTES:
+  METHODS: GET,POST,PUT,DELETE
+  HEADERS: Content-Type,Authorization,Authorization-ID,Accept-Key
+  ORIGINS:
+    INTERNAL_TOOLS: http://localhost:8282
+
+DATABASE:
+  READ:
+    USERNAME: postgres
+    PASSWORD: 12345678
+    URL: localhost
+    PORT: 5432
+    NAME: postgres
+    MAXIDLECONNS: 5
+    MAXOPENCONNS: 5
+    MAXLIFETIME: 31
+    TIMEOUT: 2
+    SSL_MODE: require
+  WRITE:
+    USERNAME: postgres
+    PASSWORD: 12345678
+    URL: localhost
+    PORT: 5432
+    NAME: postgres
+    MAXIDLECONNS: 5
+    MAXOPENCONNS: 5
+    MAXLIFETIME: 31
+    TIMEOUT: 2
+    SSL_MODE: require
+
+AUTHORIZATION:
+  JWT:
+    IS_ACTIVE: true
+    ACCESS_TOKEN_SECRET_KEY: abcdefgqwerty
+    ACCESS_TOKEN_DURATION: 30
+    REFRESH_TOKEN_SECRET_KEY: abcdefgqwertyz
+    REFRESH_TOKEN_DURATION: 365
+  PUBLIC:
+    SECRECT_KEY: ^qwertyuiop
